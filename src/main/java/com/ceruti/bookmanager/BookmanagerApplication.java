@@ -7,8 +7,12 @@ import org.springframework.context.ApplicationContext;
 @SpringBootApplication
 public class BookmanagerApplication {
 	private static ApplicationContext applicationContext;
+
 	public static void main(String[] args) {
 		applicationContext=SpringApplication.run(BookmanagerApplication.class, args);
+
 	}
+
+
 
 }

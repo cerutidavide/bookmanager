@@ -1,26 +1,28 @@
 package com.ceruti.bookmanager.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+
+import jakarta.persistence.*;
+
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.Objects;
 
 
-
 @Entity
+@Table(name = "book")
 public class Book {
     private String title;
     private Integer pages;
     private String review;
     private String language;
     private Date publicationyear;
+    @OneToMany
     private Author[] authors;
     @Id
     @GeneratedValue
-    private int id;
-
+    private Long id;
+    @ManyToOne
+    private Publisher publisher;
 
     @Override
     public boolean equals(Object o) {
@@ -44,7 +46,7 @@ public class Book {
         this.publisher = publisher;
     }
 
-    private Publisher publisher;
+
 
     public String getTitle() {
         return title;

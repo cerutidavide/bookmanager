@@ -1,10 +1,17 @@
 package com.ceruti.bookmanager.model;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+
 import java.util.Objects;
 
+@Entity
 public class Publisher {
     private String name;
     private String city;
+    @Id
+    @GeneratedValue
     private Long Id;
 
 
