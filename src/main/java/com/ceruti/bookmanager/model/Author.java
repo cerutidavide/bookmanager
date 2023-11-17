@@ -1,11 +1,20 @@
 package com.ceruti.bookmanager.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.util.Objects;
 
-public class Author {
+
+
+@Entity
+class Author {
     private String name;
     private String surname;
-    private Long id;
+
+    @Id
+    @GeneratedValue
+    int id;
 
     @Override
     public boolean equals(Object o) {

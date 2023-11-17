@@ -2,12 +2,13 @@ package com.ceruti.bookmanager;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 
 @SpringBootApplication
 public class BookmanagerApplication {
-
+	private static ApplicationContext applicationContext;
 	public static void main(String[] args) {
-		SpringApplication.run(BookmanagerApplication.class, args);
+		applicationContext=SpringApplication.run(BookmanagerApplication.class, args);
 	}
 
 }

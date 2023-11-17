@@ -1,9 +1,15 @@
 package com.ceruti.bookmanager.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import java.sql.Date;
 import java.util.Arrays;
 import java.util.Objects;
 
+
+
+@Entity
 public class Book {
     private String title;
     private Integer pages;
@@ -11,7 +17,9 @@ public class Book {
     private String language;
     private Date publicationyear;
     private Author[] authors;
-    private Long Id;
+    @Id
+    @GeneratedValue
+    private int id;
 
 
     @Override
