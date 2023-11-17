@@ -24,6 +24,9 @@ public class Book {
     @ManyToOne
     private Publisher publisher;
 
+    public Book() {
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
