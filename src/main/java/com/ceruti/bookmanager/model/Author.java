@@ -4,12 +4,16 @@ package com.ceruti.bookmanager.model;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.Objects;
 
 
 @Entity
+@Table(name="author")
 class Author {
+    public Author() {
+    }
 
     private String name;
     private String surname;
