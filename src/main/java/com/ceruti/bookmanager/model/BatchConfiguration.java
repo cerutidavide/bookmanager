@@ -1,10 +1,7 @@
 package com.ceruti.bookmanager.model;
 
-import org.springframework.batch.core.Job;
-import org.springframework.batch.core.Step;
-import org.springframework.batch.core.job.builder.JobBuilder;
-import org.springframework.batch.core.repository.JobRepository;
-import org.springframework.batch.core.step.builder.StepBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.database.JdbcBatchItemWriter;
 import org.springframework.batch.item.database.builder.JdbcBatchItemWriterBuilder;
 import org.springframework.batch.item.file.FlatFileItemReader;
@@ -21,11 +18,11 @@ import javax.sql.DataSource;
 
 @Configuration
 public class BatchConfiguration {
-
+	private static final Logger log = LoggerFactory.getLogger(BatchConfiguration.class);
 	@Bean
 	@ConfigurationProperties
 	public DataSourceTransactionManager dataSourceTransactionManager() {
-		return new DataSourceTransactionManager(DataSourceBuilder.create().url("jdbc:h2:mem:testdb").username("SA").build());
+		return new DataSourceTransactionManager(DataSourceBuilder.create().url("jdbc:h2:tcp://localhost:9092/~/TestDUE").username("SA").password("sa").build());
 	}
 
 	@Bean(name = "applicationJdbcTemplate")
@@ -34,10 +31,11 @@ public class BatchConfiguration {
 	}
 	@Bean
 	public JdbcTemplate jdbcTemplate(DataSource dataSource) {
-		return new JdbcTemplate(dataSource);
+		return new JdbcTemplate(dataSourceTransactionManager().getDataSource());
 	}// tag::readerwriterprocessor[]
 	@Bean
 	public FlatFileItemReader<Person> reader() {
+
 		return new FlatFileItemReaderBuilder<Person>()
 			.name("personItemReader")
 			.resource(new ClassPathResource("sample-data.csv"))
@@ -62,25 +60,24 @@ public class BatchConfiguration {
 			.build();
 	}
 	// end::readerwriterprocessor[]
-
 	// tag::jobstep[]
-	@Bean
-	public Job importUserJob(JobRepository jobRepository,Step step1, JobCompletionNotificationListener listener) {
-		return new JobBuilder("importUserJob", jobRepository)
-			.listener(listener)
-			.start(step1)
-			.build();
-	}
-
-	@Bean
-	public Step step1(JobRepository jobRepository, DataSourceTransactionManager transactionManager,
-					  FlatFileItemReader<Person> reader, PersonItemProcessor processor, JdbcBatchItemWriter<Person> writer) {
-		return new StepBuilder("step1", jobRepository)
-			.<Person, Person> chunk(3, transactionManager)
-			.reader(reader)
-			.processor(processor)
-			.writer(writer)
-			.build();
-	}
+//	@Bean
+//	public Job importUserJob(JobRepository jobRepository,Step step1, JobCompletionNotificationListener listener) {
+//		return new JobBuilder("importUserJob", jobRepository)
+//			.listener(listener)
+//			.start(step1)
+//			.build();
+//	}
+//
+//	@Bean
+//	public Step step1(JobRepository jobRepository, DataSourceTransactionManager transactionManager,
+//					  FlatFileItemReader<Person> reader, PersonItemProcessor processor, JdbcBatchItemWriter<Person> writer) {
+//		return new StepBuilder("step1", jobRepository)
+//			.<Person, Person> chunk(3, transactionManager)
+//			.reader(reader)
+//			.processor(processor)
+//			.writer(writer)
+//			.build();
+//	}
 	// end::jobstep[]
 }

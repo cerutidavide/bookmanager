@@ -15,8 +15,8 @@ class Author {
     public Author() {
     }
 
-    private String name;
-    private String surname;
+    private String firstName;
+    private String lastName;
 
     @Id
     @GeneratedValue
@@ -35,8 +35,8 @@ class Author {
     }
 
     public Author(String name, String surname) {
-        this.name = name;
-        this.surname = surname;
+        this.firstName = name;
+        this.lastName = surname;
     }
 
     public Long getId() {
@@ -44,18 +44,18 @@ class Author {
     }
 
     public String getName() {
-        return name;
+        return firstName;
     }
 
     public void setName(String name) {
-        this.name = name;
+        this.firstName = name;
     }
 
     public String getSurname() {
-        return surname;
+        return lastName;
     }
 
     public void setSurname(String surname) {
-        this.surname = surname;
+        this.lastName = surname;
     }
 }
